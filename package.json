@@ -7,10 +7,15 @@
     "lint": "eslint ./js/main.js",
     "html": "cp ./index.html ./dist",
     "css": "lessc -x ./styles/styles.less ./dist/styles.css",
-    "js": "browserify ./js/main.js > ./dist/main.js",
-    "build": "npm run lint && npm run html && npm run css && npm run js",
+    "js": "npm run browserify && npm run uglify-js",
+    "browserify": "browserify ./js/client.js ./js/detailedView.js ./js/listView.js ./js/main.js ./js/sitzung.js --standalone XXX > ./dist/main.js",
+    "uglify-js": "uglifyjs ./dist/main.js",
+    "build": "npm run lint && npm run css && npm run html && npm run js",
     "start": "npm run build && http-server ./dist",
-    "clean": "rm ./dist/main.js && rm ./dist/styles.less && rm ./dist/index.html"
+    "clean": "rm ./dist/main.js && rm ./dist/styles.css && rm ./dist/index.html",
+    "debug": "npm run lint && npm run css2 && npm run html && npm run js2 && http-server ./dist",
+    "css2":"lessc ./styles/styles.less ./dist/styles.css",
+    "js2":"npm run browserify"
   },
   "keywords": [
     "egal"
