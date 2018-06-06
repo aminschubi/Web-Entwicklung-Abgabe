@@ -4,7 +4,7 @@
   "description": "abgabe webdev",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./js/main.js",
+    "lint": "eslint ./js/main.js ./js/client.js ./js/detailedView.js ./js/listView.js ./js/sitzung.js",
     "html": "cp ./index.html ./dist",
     "css": "lessc -x ./styles/styles.less ./dist/styles.css",
     "js": "npm run browserify && npm run uglify-js",
