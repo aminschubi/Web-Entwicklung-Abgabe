@@ -1,4 +1,5 @@
 function DetailedView(){
+    var this_ = this;
     //TextAreas
     this.tOrt = document.getElementById("ort");
     this.tDatum = document.getElementById("datum");
@@ -8,6 +9,7 @@ function DetailedView(){
     this.bNewObj = document.getElementById("newObj");
     this.bEditObj = document.getElementById("editObj");
     this.bDelObj = document.getElementById("delObj");
+    this.bEditSit = document.getElementById("editSit");
     this.bPrintSit = document.getElementById("printSit");
     this.bSaveSit = document.getElementById("saveSit");
     this.bCloseSit = document.getElementById("closeSit");
@@ -15,12 +17,13 @@ function DetailedView(){
     this.list = document.getElementById("liste");
     //OnClicks
     this.bOpenMaps.onclick = this.openLocation;
-    this.bNewObj.onclick = this.newBeObj;
+    this.bNewObj.onclick = function(){this_.newBeObj();};
     this.bEditObj.onclick = this.editBeObj;
     this.bDelObj.onclick = this.delBeObj;
+    this.bEditSit.onclick = function(){this_.editSitzung();};
     this.bPrintSit.onclick = this.print;
     this.bSaveSit.onclick = this.save;
-    this.bCloseSit.onclick = this.close;
+    this.bCloseSit.onclick = function(){this_.close();};
 
     this.offeneSitzung = 0;
 };
@@ -36,20 +39,21 @@ DetailedView.prototype.open = function(sitzung){
         this.list.add(newObj);
     }
 };
-DetailedView.prototype.editSitzung = function(){};
+DetailedView.prototype.editSitzung = function(){
+    
+};
 DetailedView.prototype.newBeObj = function(){
-    var t = this;
-    console.log(this);
-    var objekt = window.prompt("Namen des zu beobachtenden Objekts:", "Easy");
+    var this_ = this;
+    var objekt = window.prompt("Namen des zu beobachtenden Objekts:", "");
     if(objekt == null || objekt == ""){
         alert("Nichts wurde eingetippt!");
     }
     else{
-        t.offeneSitzung.objekte.add(objekt);
+        this_.offeneSitzung.objekte.push(objekt);
         var newObj = document.createElement("option");
         newObj.text = objekt;
         console.log(newObj);
-        t.list.add(newObj);
+        this_.list.add(newObj);
     }
 };
 DetailedView.prototype.editBeObj = function(){};
@@ -62,6 +66,8 @@ DetailedView.prototype.close = function(){
     {
         this.list.remove(i);
     }
+    this.tDatum.value = "";
+    this.tOrt.value = "";
 };
 DetailedView.prototype.save = function(){};
 DetailedView.prototype.print = function(){};

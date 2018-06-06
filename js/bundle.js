@@ -4,6 +4,7 @@ function Client(){
 };
 },{}],2:[function(require,module,exports){
 function DetailedView(){
+    var this_ = this;
     //TextAreas
     this.tOrt = document.getElementById("ort");
     this.tDatum = document.getElementById("datum");
@@ -20,12 +21,12 @@ function DetailedView(){
     this.list = document.getElementById("liste");
     //OnClicks
     this.bOpenMaps.onclick = this.openLocation;
-    this.bNewObj.onclick = this.newBeObj;
+    this.bNewObj.onclick = function(){this_.newBeObj();};
     this.bEditObj.onclick = this.editBeObj;
     this.bDelObj.onclick = this.delBeObj;
     this.bPrintSit.onclick = this.print;
     this.bSaveSit.onclick = this.save;
-    this.bCloseSit.onclick = this.close;
+    this.bCloseSit.onclick = function(){this_.close();};
 
     this.offeneSitzung = 0;
 };
@@ -43,18 +44,17 @@ DetailedView.prototype.open = function(sitzung){
 };
 DetailedView.prototype.editSitzung = function(){};
 DetailedView.prototype.newBeObj = function(){
-    var t = this;
-    console.log(this);
-    var objekt = window.prompt("Namen des zu beobachtenden Objekts:", "Easy");
+    var this_ = this;
+    var objekt = window.prompt("Namen des zu beobachtenden Objekts:", "");
     if(objekt == null || objekt == ""){
         alert("Nichts wurde eingetippt!");
     }
     else{
-        t.offeneSitzung.objekte.add(objekt);
+        this_.offeneSitzung.objekte.push(objekt);
         var newObj = document.createElement("option");
         newObj.text = objekt;
         console.log(newObj);
-        t.list.add(newObj);
+        this_.list.add(newObj);
     }
 };
 DetailedView.prototype.editBeObj = function(){};
@@ -67,16 +67,22 @@ DetailedView.prototype.close = function(){
     {
         this.list.remove(i);
     }
+    this.tDatum.value = "";
+    this.tOrt.value = "";
 };
 DetailedView.prototype.save = function(){};
 DetailedView.prototype.print = function(){};
 
 module.exports = DetailedView;
 },{}],3:[function(require,module,exports){
+var Sitzung = require("./sitzung");
+
 function ListView(details){
     var this_ = this;
     this.details = details;
     this.sitzungen = [];
+    this.bAdd = document.getElementById("addSitzung");
+    this.bAdd.onclick = function(){this_.newSitzung();};
     this.bNextPage = document.getElementById("nextPage");
     this.bNextPage.onclick = function(){
         this_.sitzungen = [];
@@ -87,8 +93,19 @@ function ListView(details){
         this_.details.close();
         this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
     };
+    this.list.onclick = function(){
+        this_.details.close();
+        this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
+    };
 };
 
+ListView.prototype.newSitzung = function(){
+    this.details.close();
+    var neu = new Sitzung("","",[]);
+    this.addSitzung(neu);
+    this.update();
+    this.list.selectedIndex = this.sitzungen.length-1;
+};
 ListView.prototype.addSitzung = function(sitzung){
     this.sitzungen.push(sitzung);
     this.update();
@@ -113,7 +130,7 @@ ListView.prototype.clean = function(){
 };
 
 module.exports = ListView;
-},{}],4:[function(require,module,exports){
+},{"./sitzung":5}],4:[function(require,module,exports){
 var DetailedView = require("./detailedView");
 var ListView = require("./listView");
 var Sitzung = require("./sitzung");

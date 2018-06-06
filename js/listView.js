@@ -1,7 +1,11 @@
+var Sitzung = require("./sitzung");
+
 function ListView(details){
     var this_ = this;
     this.details = details;
     this.sitzungen = [];
+    this.bAdd = document.getElementById("addSitzung");
+    this.bAdd.onclick = function(){this_.newSitzung();};
     this.bNextPage = document.getElementById("nextPage");
     this.bNextPage.onclick = function(){
         this_.sitzungen = [];
@@ -12,8 +16,19 @@ function ListView(details){
         this_.details.close();
         this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
     };
+    this.list.onclick = function(){
+        this_.details.close();
+        this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
+    };
 };
 
+ListView.prototype.newSitzung = function(){
+    this.details.close();
+    var neu = new Sitzung("","",[]);
+    this.addSitzung(neu);
+    this.update();
+    this.list.selectedIndex = this.sitzungen.length-1;
+};
 ListView.prototype.addSitzung = function(sitzung){
     this.sitzungen.push(sitzung);
     this.update();
