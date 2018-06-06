@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-
 <head>
     <meta charset="utf-8">
     <title>Hobbyastronom</title>
     <link rel="stylesheet/less" type="text/less" href="./styles/styles.less">
-    <script type="text/javascript" src="main.js"></script>
 </head>
+<style>
+    #main {
+        float: left;
+        border-style: solid;
+        border-width: 5px;
+
+    }
+    #listFrame {
+        border-style: solid;
+        border-width: 5px;
+
+    }
+    #menu {
+        border-style: solid;
+        border-width: 5px;
+    }
+</style>
 <body>
     <!--Detailed-View-->
     <div id="main">
@@ -19,9 +32,11 @@
         <button id="openMaps">Maps</button>
         <textarea id="datum">DatumPH</textarea>
         <div id="listFrame">
-            <select id="liste" size="5">
+            <div id="listDiv">
+                <select id="liste" size="5">
 
-            </select>
+                </select>
+            </div>
             <button id="newObj">Neu</button>
             <button id="editObj">Bearbeiten</button>
             <button id="delObj">Löschen</button>
@@ -38,10 +53,12 @@
         <select id="sitzungen" size="10">
 
         </select>
-        <button id="prevPage">"<-"</button>
-        <textarea id="pageNr">PageNr</textarea>
-        <button id="nextPage">"->"</button>
+        <div id="buttonArea">
+            <button id="prevPage">"<-"</button>
+            <textarea id="pageNr">PageNr</textarea>
+            <button id="nextPage">"->"</button>
+        </div>
     </div>
-
 </body>
+<script type="text/javascript" src="./js/bundle.js"></script>
 </html>
