@@ -8,32 +8,39 @@
     <title>Hobbyastronom</title>
     <link rel="stylesheet/less" type="text/css" href="styles.less">
     <script type="text/javascript" src="main.js"></script>
-
-
-
 </head>
 <body>
-    
-    
-    <div id="menu">
+    <!--Detailed-View-->
+    <div id="main">
+        <h1 id="header2">
+            Details
+        </h1>
+        <textarea id="ort">Ort</textarea>
+        <textarea id="datum">DatumPH</textarea>
+        <div id="listFrame">
+            <select id="liste" size="5">
 
+            </select>
+            <button id="newObj">Neu</button>
+            <button id="editObj">Bearbeiten</button>
+            <button id="delObj">Löschen</button>
+        </div>
+        <button id="printSit">Drucken</button>
+        <button id="saveSit">Save</button>
+        <button id="closeSit">Schließen</button>
+    </div>
+    <!--List-View-->
+    <div id="menu">
         <h2 id="header2">
             Sitzungen
         </h2>
+        <select id="sitzungen" size="10">
 
+        </select>
+        <button id="prevPage">"<-"</button>
+        <textarea id="pageNr">PageNr</textarea>
+        <button id="nextPage">"->"</button>
     </div>
-
-
-    <div id="main">
-
-        
-        <h1 id="header">
-            Sitzung #XY
-        </h1>
-    
-
-    </div>
-
 
 </body>
 </html>
