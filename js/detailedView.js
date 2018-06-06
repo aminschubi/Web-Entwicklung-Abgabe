@@ -27,6 +27,7 @@ function DetailedView(){
 
 DetailedView.prototype.open = function(sitzung){
     this.offeneSitzung = sitzung;
+    console.log(this.offeneSitzung);
     this.tOrt.value = sitzung.ort;
     this.tDatum.value = sitzung.datum;
     for(let x in sitzung.objekte){
@@ -36,13 +37,32 @@ DetailedView.prototype.open = function(sitzung){
     }
 };
 DetailedView.prototype.editSitzung = function(){};
-DetailedView.prototype.newBeObj = function(objekt){};
+DetailedView.prototype.newBeObj = function(){
+    var t = this;
+    console.log(this);
+    var objekt = window.prompt("Namen des zu beobachtenden Objekts:", "Easy");
+    if(objekt == null || objekt == ""){
+        alert("Nichts wurde eingetippt!");
+    }
+    else{
+        t.offeneSitzung.objekte.add(objekt);
+        var newObj = document.createElement("option");
+        newObj.text = objekt;
+        console.log(newObj);
+        t.list.add(newObj);
+    }
+};
 DetailedView.prototype.editBeObj = function(){};
 DetailedView.prototype.delBeObj = function(){};
 DetailedView.prototype.openLocation = function(){
     console.log("test");
 };
-DetailedView.prototype.close = function(){};
+DetailedView.prototype.close = function(){
+    for(i = this.list.options.length - 1 ; i >= 0 ; i--)
+    {
+        this.list.remove(i);
+    }
+};
 DetailedView.prototype.save = function(){};
 DetailedView.prototype.print = function(){};
 
