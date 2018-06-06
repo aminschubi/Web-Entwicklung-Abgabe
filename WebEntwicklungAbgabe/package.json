@@ -7,7 +7,8 @@
     "lint": "eslint ./js/main.js",
     "html": "cp ./index.html ./dist",
     "css": "lessc -x ./styles/styles.less ./dist/styles.css",
-    "js": "browserify ./js/main.js > ./dist/main.js",
+    "js": "browserify ./js/main.js > ./dist/main.js && npm run uglify-js",
+    "uglify-js": "uglifyjs ./dist/main.js",
     "build": "npm run lint && npm run html && npm run css && npm run js",
     "start": "npm run build && http-server ./dist",
     "clean": "rm ./dist/main.js && rm ./dist/styles.less && rm ./dist/index.html"
