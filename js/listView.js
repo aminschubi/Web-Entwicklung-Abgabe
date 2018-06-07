@@ -1,13 +1,11 @@
 var Sitzung = require("./sitzung");
 var json = require("../dummy.json");
 
-<<<<<<< HEAD
 function ListView(details){
     var this_ = this;
     this.details = details;
     this.details.listView = this;
     this.sitzungen = [];
-    this.read();
     this.bAdd = document.getElementById("addSitzung");
     this.bAdd.onclick = function(){this_.newSitzung();};
     this.bNextPage = document.getElementById("nextPage");
@@ -26,6 +24,7 @@ function ListView(details){
         this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
         this_.details.bEditSit.diabled = false;
     };
+    this.read();
 };
 
 ListView.prototype.newSitzung = function(){
@@ -41,43 +40,6 @@ ListView.prototype.addSitzung = function(sitzung){
     var test = JSON.stringify(sitzung);
     console.log(test);
     this.update();
-=======
-function ListView(details) {
-	var this_ = this;
-	this.details = details;
-	this.details.listView = this;
-	this.sitzungen = [];
-	this.bAdd = document.getElementById("addSitzung");
-	this.bAdd.onclick = function () { this_.newSitzung(); };
-	this.bNextPage = document.getElementById("nextPage");
-	this.bNextPage.onclick = function () {
-		this_.sitzungen = [];
-		this_.clean();
-	};
-	this.list = document.getElementById("sitzungen");
-	this.list.onchange = function () {
-		this_.details.closeD();
-		this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
-		this_.details.bEditSit.diabled = false;
-	};
-	this.list.onclick = function () {
-		this_.details.closeD();
-		this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
-		this_.details.bEditSit.diabled = false;
-	};
-}
-
-ListView.prototype.newSitzung = function () {
-	this.details.closeD();
-	var neu = new Sitzung("", "", []);
-	this.addSitzung(neu);
-	this.update();
-	this.list.selectedIndex = this.sitzungen.length - 1;
-};
-ListView.prototype.addSitzung = function (sitzung) {
-	this.sitzungen.push(sitzung);
-	this.update();
->>>>>>> c337b964b25aab77be8484c191e1dc89f8446344
 };
 ListView.prototype.delSitzung = function (index) {
 	this.sitzungen.splice(index, index);
@@ -92,14 +54,15 @@ ListView.prototype.update = function () {
 	}
 };
 ListView.prototype.clean = function () {
-	for (var i = this.list.options.length - 1; i >= 0; i--) {
-		this.list.remove(i);
-	}
+    if(this.list != undefined)
+        for (var i = this.list.options.length - 1; i >= 0; i--) {
+            this.list.remove(i);
+        }
 };
 ListView.prototype.read = function(){
     var jSitzungen = json.sitzungen;
     for(let x in jSitzungen){
-        this.sitzungen.push(new Sitzung(jSitzungen[x].ort, jSitzungen[x].datum, jSitzungen[x].objekte));
+        this.addSitzung(new Sitzung(jSitzungen[x].ort, jSitzungen[x].datum, jSitzungen[x].objekte));
     }
     console.log(this.sitzungen);
 }
