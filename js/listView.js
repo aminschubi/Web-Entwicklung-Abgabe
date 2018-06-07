@@ -13,17 +13,19 @@ function ListView(details){
     };
     this.list = document.getElementById("sitzungen");
     this.list.onchange = function(){
-        this_.details.close();
+        this_.details.closeD();
         this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
+        this_.details.bEditSit.diabled = false;
     };
     this.list.onclick = function(){
-        this_.details.close();
+        this_.details.closeD();
         this_.details.open(this_.sitzungen[this_.list.selectedIndex]);
+        this_.details.bEditSit.diabled = false;
     };
 };
 
 ListView.prototype.newSitzung = function(){
-    this.details.close();
+    this.details.closeD();
     var neu = new Sitzung("","",[]);
     this.addSitzung(neu);
     this.update();
