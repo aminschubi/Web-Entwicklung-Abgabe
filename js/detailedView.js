@@ -27,8 +27,8 @@ function DetailedView(){
     //OnClicks
     this.bOpenMaps.onclick = this.openLocation;
     this.bNewObj.onclick = function(){this_.newBeObj();};
-    this.bEditObj.onclick = this.editBeObj;
-    this.bDelObj.onclick = this.delBeObj;
+    this.bEditObj.onclick = function(){this_.editBeObj();};
+    this.bDelObj.onclick = function(){this_.delBeObj();};
     this.bEditSit.onclick = function(){this_.editSitzung();};
     this.bPrintSit.onclick = this.print;
     this.bSaveSit.onclick = function(){this_.save()};
@@ -68,8 +68,23 @@ DetailedView.prototype.newBeObj = function(){
         this.list.add(newObj);
     }
 };
-DetailedView.prototype.editBeObj = function(){};
-DetailedView.prototype.delBeObj = function(){};
+DetailedView.prototype.editBeObj = function(){
+    var objekt = window.prompt("Beobachtungsobjekt "+this.list.selectedIndex, "");
+    if(objekt == null || objekt == ""){
+        alert("Nichts wurde eingetippt!");
+    }
+    else{
+        this.offeneSitzung.objekte[this.list.selectedIndex] = objekt;
+        this.list.options[this.list.selectedIndex].text = objekt;
+    }
+};
+DetailedView.prototype.delBeObj = function(){
+    console.log("delete Element "+this.list.selectedIndex);
+    if(this.list.selectedIndex >= 0){
+        this.offeneSitzung.objekte.splice(this.list.selectedIndex, 1);
+        this.list.remove(this.list.selectedIndex);
+    }
+};
 DetailedView.prototype.openLocation = function(){
     console.log("test");
 };
