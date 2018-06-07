@@ -1,9 +1,13 @@
 var Sitzung = require("./sitzung");
 
 function DetailedView(){
+    //lokales this für onclick()'s
     var this_ = this;
+    //Ref auf Liste für updates
     this.listView = 0;
+    //Ref auf Sitzung im Listen-Array
     this.refSitzung = 0;
+    //Aktuell geöffnete Liste und Backup (Muss noch verschönert)
     this.offeneSitzung = 0;
     this.backup = 0;
     //TextAreas
@@ -11,7 +15,6 @@ function DetailedView(){
     this.tDatum = document.getElementById("datum");
     //Buttons
     this.bOpenMaps = document.getElementById("openMaps");
-    console.log(this.bOpenMaps);
     this.bNewObj = document.getElementById("newObj");
     this.bEditObj = document.getElementById("editObj");
     this.bDelObj = document.getElementById("delObj");
@@ -75,10 +78,10 @@ DetailedView.prototype.closeD = function(){
     {
         this.list.remove(i);
     }
-    console.log(this.offeneSitzung, this.backup);
     if(this.offeneSitzung != 0){
-        //this.offeneSitzung = new Sitzung(this.backup.getOrt(), this.backup.getDatum(), this.backup.getObjekte().slice(0));
-        console.log(this.offeneSitzung, this.backup);
+        this.refSitzung.ort = this.backup.getOrt();
+        this.refSitzung.datum = this.backup.getDatum();
+        this.refSitzung.objekte = this.backup.getObjekte().slice(0);
     }
     this.tDatum.value = "";
     this.tOrt.value = "";
