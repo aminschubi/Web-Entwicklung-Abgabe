@@ -1,8 +1,15 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+module.exports={"sitzungen" : [
+    {"ort":"Tokio","datum":"08-06-2017","objekte":["Saturn","Venus"]},
+    {"ort":"Tokio","datum":"08-06-2017","objekte":["Saturn","Venus"]},
+    {"ort":"Tokio","datum":"08-06-2017","objekte":["Saturn","Venus"]}
+]}
+
+},{}],2:[function(require,module,exports){
 function Client(){
 
 };
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var Sitzung = require("./sitzung");
 
 function DetailedView(){
@@ -122,14 +129,16 @@ DetailedView.prototype.save = function(){
 DetailedView.prototype.print = function(){};
 
 module.exports = DetailedView;
-},{"./sitzung":5}],3:[function(require,module,exports){
+},{"./sitzung":6}],4:[function(require,module,exports){
 var Sitzung = require("./sitzung");
+var json = require("../dummy.json");
 
 function ListView(details){
     var this_ = this;
     this.details = details;
     this.details.listView = this;
     this.sitzungen = [];
+    this.read();
     this.bAdd = document.getElementById("addSitzung");
     this.bAdd.onclick = function(){this_.newSitzung();};
     this.bNextPage = document.getElementById("nextPage");
@@ -156,9 +165,12 @@ ListView.prototype.newSitzung = function(){
     this.addSitzung(neu);
     this.update();
     this.list.selectedIndex = this.sitzungen.length-1;
+
 };
 ListView.prototype.addSitzung = function(sitzung){
     this.sitzungen.push(sitzung);
+    var test = JSON.stringify(sitzung);
+    console.log(test);
     this.update();
 };
 ListView.prototype.delSitzung = function(index){
@@ -179,9 +191,16 @@ ListView.prototype.clean = function(){
             this.list.remove(i);
         }
 };
+ListView.prototype.read = function(){
+    var jSitzungen = json.sitzungen;
+    for(let x in jSitzungen){
+        this.sitzungen.push(new Sitzung(jSitzungen[x].ort, jSitzungen[x].datum, jSitzungen[x].objekte));
+    }
+    console.log(this.sitzungen);
+}
 
 module.exports = ListView;
-},{"./sitzung":5}],4:[function(require,module,exports){
+},{"../dummy.json":1,"./sitzung":6}],5:[function(require,module,exports){
 var DetailedView = require("./detailedView");
 var ListView = require("./listView");
 var Sitzung = require("./sitzung");
@@ -197,7 +216,7 @@ listView.addSitzung(new Sitzung("Trier", "08-06-2017", ["Neptun", "Mars"]));
 
 
 
-},{"./detailedView":2,"./listView":3,"./sitzung":5}],5:[function(require,module,exports){
+},{"./detailedView":3,"./listView":4,"./sitzung":6}],6:[function(require,module,exports){
 function Sitzung(ort, datum, objekte){
     this.ort = ort;
     this.datum = datum;
@@ -221,4 +240,4 @@ Sitzung.prototype.getDesc = function(){
 };
 
 module.exports = Sitzung;
-},{}]},{},[1,2,3,5,4]);
+},{}]},{},[2,3,4,6,5]);

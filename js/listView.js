@@ -1,10 +1,12 @@
 var Sitzung = require("./sitzung");
+var json = require("../dummy.json");
 
 function ListView(details){
     var this_ = this;
     this.details = details;
     this.details.listView = this;
     this.sitzungen = [];
+    this.read();
     this.bAdd = document.getElementById("addSitzung");
     this.bAdd.onclick = function(){this_.newSitzung();};
     this.bNextPage = document.getElementById("nextPage");
@@ -31,9 +33,12 @@ ListView.prototype.newSitzung = function(){
     this.addSitzung(neu);
     this.update();
     this.list.selectedIndex = this.sitzungen.length-1;
+
 };
 ListView.prototype.addSitzung = function(sitzung){
     this.sitzungen.push(sitzung);
+    var test = JSON.stringify(sitzung);
+    console.log(test);
     this.update();
 };
 ListView.prototype.delSitzung = function(index){
@@ -54,5 +59,12 @@ ListView.prototype.clean = function(){
             this.list.remove(i);
         }
 };
+ListView.prototype.read = function(){
+    var jSitzungen = json.sitzungen;
+    for(let x in jSitzungen){
+        this.sitzungen.push(new Sitzung(jSitzungen[x].ort, jSitzungen[x].datum, jSitzungen[x].objekte));
+    }
+    console.log(this.sitzungen);
+}
 
 module.exports = ListView;
