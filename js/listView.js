@@ -3,6 +3,7 @@ var Sitzung = require("./sitzung");
 function ListView(details){
     var this_ = this;
     this.details = details;
+    this.details.listView = this;
     this.sitzungen = [];
     this.bAdd = document.getElementById("addSitzung");
     this.bAdd.onclick = function(){this_.newSitzung();};
@@ -43,7 +44,7 @@ ListView.prototype.update = function(){
     this.clean();
     for(let x in this.sitzungen){
         var newObj = document.createElement("option");
-        newObj.text = this.sitzungen[x].description;
+        newObj.text = this.sitzungen[x].getDesc();
         this.list.add(newObj);
     }
 };
