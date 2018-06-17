@@ -4,7 +4,7 @@
   "description": "abgabe webdev",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./js/main.js ./js/client.js ./js/detailedView.js ./js/listView.js ./js/sitzung.js",
+    "lint": "eslint --fix ./js/main.js ./js/client.js ./js/detailedView.js ./js/listView.js ./js/sitzung.js",
     "html": "cp ./index.html ./dist",
     "css": "lessc -x ./styles/styles.less ./dist/styles.css",
     "js": "npm run browserify && npm run uglify-js",
@@ -14,8 +14,8 @@
     "start": "npm run build && http-server ./dist",
     "clean": "rm ./dist/main.js && rm ./dist/styles.css && rm ./dist/index.html",
     "debug": "npm run lint && npm run css2 && npm run html && npm run js2 && http-server ./dist",
-    "css2":"lessc ./styles/styles.less ./dist/styles.css",
-    "js2":"npm run browserify"
+    "css2": "lessc ./styles/styles.less ./dist/styles.css",
+    "js2": "npm run browserify"
   },
   "keywords": [
     "egal"
@@ -24,7 +24,8 @@
   "license": "ISC",
   "dependencies": {
     "http-server": "^0.11.1",
-    "less": "^3.0.4"
+    "less": "^3.0.4",
+    "webpack": "^4.11.1"
   },
   "devDependencies": {
     "browserify": "^16.2.2",
