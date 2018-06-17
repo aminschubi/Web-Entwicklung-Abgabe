@@ -41,7 +41,7 @@ ListView.prototype.addSitzung = function(sitzung){
     console.log(test);
     this.update();
 };
-ListView.prototype.delSitzung = function (index) {
+ListView.prototype.delSitzung = function (index){
 	this.sitzungen.splice(index, index);
 	this.update();
 };
